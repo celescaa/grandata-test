@@ -16,7 +16,7 @@ COPY ./notebooks /home/jovyan/notebooks
 # Opcional: Configura el entorno de Spark si es necesario
 ENV SPARK_HOME=/usr/local/spark
 ENV PATH=$PATH:$SPARK_HOME/bin
-ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
+# ADD spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 
 # Opcional: Configura el entorno de Jupyter si es necesario
 ENV JUPYTER_ENABLE_LAB=yes
