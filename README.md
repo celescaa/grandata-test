@@ -29,17 +29,22 @@ Asegúrate de tener Docker y Docker Compose instalados en tu sistema. Para levan
 ```bash
 git clone https://github.com/celescaa/grandata-test.git
 cd grandata-test
+```
+
 Construye y levanta los servicios definidos en docker-compose.yml:
-bash
-Copy code
+
+```bash
 docker-compose up --build
+```
+
 Accede a Jupyter Notebook a través del enlace proporcionado en la consola para visualizar y ejecutar los análisis.
 
-Uso
+## Uso
 Dentro de Jupyter Notebook, encontrarás notebooks que contienen el código necesario para:
 
 Cálculo del Monto Total por Envíos de SMS
 Generación de Dataset de Usuarios con Mayor Facturación
 Histograma de Cantidad de Llamadas por Hora del Día
-Contribuir
+
+## Contribuir
 Si deseas contribuir a este proyecto, por favor, envía un pull request o abre un issue en el repositorio de GitHub para discutir los cambios propuestos.
