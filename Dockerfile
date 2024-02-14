@@ -13,6 +13,9 @@ RUN pip install pandas matplotlib
 COPY ./data /home/jovyan/data
 COPY ./notebooks /home/jovyan/notebooks
 
+RUN mkdir -p /home/jovyan/data/parquet && \
+    chmod 777 /home/jovyan/data/
+
 # Opcional: Configura el entorno de Spark si es necesario
 ENV SPARK_HOME=/usr/local/spark
 ENV PATH=$PATH:$SPARK_HOME/bin
