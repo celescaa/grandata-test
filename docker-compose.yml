@@ -1,0 +1,9 @@
+version: '3'
+services:
+  pyspark-notebook:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/celes/data
+      - ./notebooks:/home/celes/notebooks
