@@ -89,7 +89,6 @@ Dentro de Jupyter Notebook, encontrarás dos carpetas con la informacion necesar
 
 
 
-
 ## PREGUNTAS TEORICAS 
 
 ## 1. Priorización de Procesos Productivos sobre Análisis Exploratorios

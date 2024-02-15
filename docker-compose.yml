@@ -5,5 +5,5 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - ./data:/home/celes/data
-      - ./notebooks:/home/celes/notebooks
+      - ./data:/home/jovyan/data
+      - ./notebooks:/home/jovyan/notebooks
