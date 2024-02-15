@@ -5,6 +5,7 @@ El poroposito de este test es resolver los siguientes 3 puntos:
   - Cálculo del Monto Total por Envíos de SMS
   - Generación de Dataset con los 100 Usuarios con Mayor Facturación
   - Histograma de Cantidad de Llamadas por Hora del Día
+  - Preguntas Teoricas
     
 ## Repositorio de GitHub
 
@@ -93,38 +94,28 @@ Dentro de Jupyter Notebook, encontrarás dos carpetas con la informacion necesar
 
 ## 1. Priorización de Procesos Productivos sobre Análisis Exploratorios
 
-Utilizaría colas de YARN (Yet Another Resource Negotiator) para gestionar y priorizar los recursos. Puedes configurar colas diferentes para procesos productivos y análisis exploratorios, asignando una mayor prioridad y más recursos a las colas de procesos productivos.
+- Utilizaría colas de YARN para gestionar y priorizar los recursos. Configuraria dos colas diferentes, una para procesos productivos y otra para los análisis exploratorios, asignando una mayor prioridad y más recursos a las colas de procesos productivos.
 
-Pool de Recursos: En Spark, configurar pools de recursos con diferentes prioridades para asegurar que los trabajos productivos tengan acceso preferente a los recursos.
-Estrategia para Administrar la Ejecución Intensiva:
 
-Planificación Temporal: Planificar la ejecución de trabajos intensivos durante horas de baja demanda, como por la noche o los fines de semana.
+- Planificaria la ejecución de los procesos que requieren mas recursos durante horas de baja demanda, asigandole los recursos necesarios para su ejecucion correcta. Estableceria límites en la cantidad de recursos que puede utilizar cada tarea para evitar que un solo proceso consuma todos los recursos disponibles.
+Como erramienta de scheduling conozco Apache Airflow, que te permite programar y organizar tus tareas para que corran a preferencia de las necesidades, es decir, horarios, dependencias, etc.
 
-Dinamización de Recursos: Ajustar dinámicamente la asignación de recursos basándose en la carga de trabajo actual, utilizando herramientas como Cloudera Manager o Ambari para monitorizar y gestionar los recursos.
-
-Limitación de Recursos por Trabajo: Establecer límites en la cantidad de recursos que puede utilizar cada trabajo para evitar que un solo proceso consuma todos los recursos disponibles.
-
-Herramientas de Scheduling:
-
-Apache Airflow: Herramienta de orquestación de flujo de trabajo que permite programar, organizar y monitorizar flujos de trabajo complejos.
 
 ## 2. Problemas de Performance en Tablas con Alta Transaccionalidad
-Posibles Causas:
 
-Tamaño y Diseño de la Tabla: Tablas demasiado grandes o mal diseñadas pueden dificultar las consultas eficientes.
-Particionamiento: Un esquema de particionamiento mal configurado o inexistente puede llevar a una distribución desigual de los datos y a consultas lentas.
+-  Una causa puede ser que no este particionada la tabla , o que se haya configurado mal el particionamiento, provocando una distribución desigual de los datos y a consultas lentas.
+- Que la estructura de la tabla no sea la correcta, es decir, una mal diseño de modelado de datos, por ejemplo que no tenga una pk definida y cuando se joineo con esa tabla provoque multiplicacion de datos, o que se haya construido como un stock cuando deberia ser guardar por particion los sucesos del dia.
 
-Sugerencias para Solucionarlo:
 
-Optimización de Consultas: Revisar y optimizar las consultas para mejorar su eficiencia.
-Particionamiento: Implementar o revisar la estrategia de particionamiento de la tabla para asegurar que los datos estén distribuidos de manera eficiente.
-Compresión de Datos: Utilizar formatos de almacenamiento que soporten compresión de datos para reducir el tamaño físico de la tabla.
+- Revisar la estrategia de particionamiento de la tabla para asegurar que los datos estén distribuidos de manera eficiente. Una manera seria que el campo de particion sea la fecha de la transaccion.
+- Revisar que las consultas que se hagan a la tabla no este haciendo un full scan.
+- Revisar que la construccion de la tabla sea adecuada para la explotacion analitica que se hace a diario.
+- Utilizar formatos de almacenamiento que soporten compresión de datos para reducir el tamaño físico de la tabla.
 
 ## 3. Configuración de un Clúster Hadoop para Ejecución de Proceso de Spark
-Configuraciones en la Sesión de Spark:
 
-- spark.executor.memory: Configurar cada executor para que utilice un máximo de 25 GB (la mitad de los 50 GB disponibles por nodo), lo que podría ser spark.executor.memory=25g.
-- spark.executor.cores: Limitar el número de cores por executor, por ejemplo, a 6 si quieres usar la mitad de los 12 cores disponibles por nodo.
+- Configurar cada executor para que utilice un máximo de 25 GB (la mitad de los 50 GB disponibles por nodo), lo que podría ser spark.executor.memory=25g.
+- Limitar el número de cores por executor, por ejemplo, a 6 si quieres usar la mitad, spark.executor.cores=12
 - spark.executor.instances para controlar el número total de executors desplegados y asegurar que no se utilicen todos los recursos disponibles.
 - Habilitar la asignación dinámica de recursos con spark.dynamicAllocation.enabled=true para permitir que Spark ajuste el número de executors según la carga de trabajo.
 
